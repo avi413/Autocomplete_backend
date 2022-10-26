@@ -1,0 +1,15 @@
+{
+  "extends": "airbnb-base",
+  "rules": {
+    "no-underscore-dangle": ["off", { "allow": ["id"] }],
+    "no-console": ["error", { "allow": ["warn", "error"] }],
+    "no-unused-vars": ["error", { "argsIgnorePattern": "next" }],
+    "indent": "off",
+    "linebreak-style": ["error", "windows"],
+    "no-restricted-syntax": ["error", "FunctionExpression", "WithStatement", "BinaryExpression[operator='in']"]
+  },
+  "env": {
+    "es6": true,
+    "node": true
+  }
+}
