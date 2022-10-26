@@ -6,10 +6,12 @@ const helmet = require('helmet');
 const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
 const { NotFoundError } = require('./middlewares/errors/errors');
+const { userValidate } = require('./middlewares/validate');
 const { limiter } = require('./middlewares/limiter');
+const allRouts = require('./routes/index');
 const { requestLogger } = require('./middlewares/logger');
 const { DB_DEV_URL } = require('./utils/constants');
-const { getUsers } = require('./controllers/users');
+const { getUsers, saveUser } = require('./controllers/users');
 
 const { PORT = 3000, MONGODB_URI = DB_DEV_URL } = process.env;
 mongoose
@@ -29,7 +31,7 @@ mongoose
     app.use(limiter);
     app.use(requestLogger);
 
-    app.use('/users', getUsers);
+    app.use('/', allRouts);
 
     app.get('*', () => {
       throw new NotFoundError('Requested resource not found');

@@ -26,3 +26,9 @@ module.exports.getUsers = (req, res, next) => {
     // if the record was not found, display an error message
     .catch(next);
 };
+
+module.exports.saveUser = (req, res, next) => {
+    User.create({ ...req.body })
+      .then((article) => res.status(201).send({ data: article }))
+      .catch(next);
+  };
