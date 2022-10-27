@@ -1,24 +1,24 @@
-const User = require('../models/user');
+const Employee = require('../models/employee');
 const { NotFoundError } = require('../middlewares/errors/errors');
 
-module.exports.getUsers = (req, res, next) => {
+module.exports.getemployees = (req, res, next) => {
   const reqQuery = req.query;
-  User.find()
+  Employee.find()
     // return the found data to the article
-    .then((users) => {
-      if (Object.keys(users).length) {
-        const filteredUsers = users.filter((user) => {
+    .then((employees) => {
+      if (Object.keys(employees).length) {
+        const filteredemployees = employees.filter((employee) => {
           let isValid = true;
           // eslint-disable-next-line guard-for-in
           for (const key in reqQuery) {
             isValid = isValid
-              && user[key]
+              && employee[key]
               && reqQuery[key].length > 0
-              && user[key].includes(reqQuery[key]);
+              && employee[key].includes(reqQuery[key]);
           }
           return isValid;
         });
-        res.status(200).send(filteredUsers);
+        res.status(200).send(filteredemployees);
       } else {
         throw new NotFoundError('No result found');
       }
@@ -27,8 +27,8 @@ module.exports.getUsers = (req, res, next) => {
     .catch(next);
 };
 
-module.exports.saveUser = (req, res, next) => {
-    User.create({ ...req.body })
+module.exports.saveemployee = (req, res, next) => {
+  Employee.create({ ...req.body })
       .then((article) => res.status(201).send({ data: article }))
       .catch(next);
   };
